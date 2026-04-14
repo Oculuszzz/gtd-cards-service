@@ -129,6 +129,49 @@ http://localhost:8080/v3/api-docs
 
 ---
 
+## 🐳 Running the Application with Docker (OPTIONAL)
+
+> ⚠️ Docker usage is **optional**. This section is provided as an alternative
+> way to run the application and does not affect the main assessment requirement.
+
+### 1️⃣ Dockerfile Location
+
+The `Dockerfile` is located at the **root of the project**, next to `pom.xml`.
+
+### 2️⃣ Update Database Host for Docker
+
+When running inside Docker, update the datasource URL in `application.properties`:
+
+```properties
+spring.datasource.url=jdbc:sqlserver://host.docker.internal:1433;databaseName=TESTDB;encrypt=true;trustServerCertificate=true
+```
+
+### 3️⃣ Build Application JAR
+
+```bash
+mvn clean package
+```
+
+### 4️⃣ Build Docker Image
+
+```bash
+docker build -t gtd-cards-api .
+```
+
+### 5️⃣ Run Docker Container
+
+```bash
+docker run -p 8080:8080 gtd-cards-api
+```
+
+Swagger UI will be accessible at:
+
+```
+http://host.docker.internal:8080/swagger-ui.html
+```
+
+---
+
 ## 🔌 API Design
 
 The application follows a layered architecture (Controller → Service → Repository).
